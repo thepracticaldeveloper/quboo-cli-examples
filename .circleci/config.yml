@@ -1,0 +1,43 @@
+version: 2.1
+jobs:
+  build-java:
+    docker:
+      - image: openjdk:11
+    steps:
+      - checkout
+      - run:
+          command: |
+            mvn clean package
+  release-github:
+    docker:
+      - image: alpine:3.7
+    steps:
+      - checkout
+      - run:
+          command: |
+            echo '^^^Not really releasing...^^^'
+    branches:
+      only:
+        - master
+  give-score:
+    docker:
+      - image: mechero/quboo-cli:latest
+    steps:
+      - run:
+          command: |
+            quboo release
+    branches:
+      only:
+        - master
+
+workflows:
+  version: 2
+  Example_Workflow:
+    jobs:
+      - build-java
+      - release-github:
+          requires:
+            - build-java
+      - give-score:
+          requires:
+            - release-github
