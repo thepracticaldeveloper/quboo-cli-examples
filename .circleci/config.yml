@@ -22,7 +22,7 @@ jobs:
     steps:
       - run:
           command: |
-            quboo release
+            quboo release "Circle CI Release example"
 
 workflows:
   version: 2
