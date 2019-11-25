@@ -28,14 +28,14 @@ workflows:
   version: 2
   build_release_score:
     jobs:
-      - build-java
-      - release-github:
+      - build
+      - release:
           requires:
             - build-java
           filters:
             branches:
               only: master
-      - give-score:
+      - score:
           requires:
             - release-github
           filters:
