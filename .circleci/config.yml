@@ -20,6 +20,7 @@ jobs:
     docker:
       - image: mechero/quboo-cli:latest
     steps:
+      - checkout
       - run:
           command: |
             quboo release "Circle CI Release example"
