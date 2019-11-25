@@ -31,13 +31,13 @@ workflows:
       - build
       - release:
           requires:
-            - build-java
+            - build
           filters:
             branches:
               only: master
       - score:
           requires:
-            - release-github
+            - release
           filters:
             branches:
               only: master
