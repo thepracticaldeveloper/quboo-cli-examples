@@ -1,0 +1,32 @@
+stages:
+  - build
+  - release
+  - score
+
+build:
+  image: maven:3.6-jdk-11
+  stage: build
+  script:
+    - mvn clean package
+  artifacts:
+    paths:
+      - dist/out
+
+release:
+  image: alpine:3.9
+  stage: release
+  dependencies:
+    - build
+  script:
+    - echo '^^^Not really releasing...^^^'
+  only:
+    - master
+
+score:
+  image: mechero/quboo-cli:latest
+  dependencies: []
+  stage: score
+  script:
+    - quboo release "GitLab CI Quboo Release Example"
+  only:
+    - master
